@@ -63,8 +63,6 @@ function OpenShopMenu()
 
 									ESX.TriggerServerCallback('esx_np_skinshop:buyClothes', function(bought)
 										if bought then
-											--print('comprado debug')
-											-----
 											TriggerEvent('skinchanger:getSkin', function(skin)
 
 												ESX.TriggerServerCallback('esx_property:getPlayerOutfit', function(clothes)
@@ -134,7 +132,6 @@ function OpenShopMenu()
 			end)
 		else
 			menu.close()
-			--hasPaid = false
 			TriggerEvent('skinchanger:getSkin', function(skin)
 				--print(json.encode(skin))
 				TriggerServerEvent('esx_skin:save', skin)
@@ -142,7 +139,6 @@ function OpenShopMenu()
 			TriggerEvent("esx_np_skinshop:toggleMenu", "clotheshop")
 		end
 		currentAction     = 'shop_menu'
-		--inMenu = false
 		currentActionMsg  = _U('press_menu')
 		currentActionData = {}
 	end,
@@ -150,22 +146,13 @@ function OpenShopMenu()
 		menu.close()
 
 		currentAction     = 'shop_menu'
-		--inMenu = false
 		currentActionMsg  = _U('press_menu')
 		currentActionData = {}
 	end)
-	--[[
-	hasPaid = false
-	TriggerEvent('skinchanger:getSkin', function(skin)
-		--print(json.encode(skin))
-		TriggerServerEvent('esx_skin:save', skin)
-	end)
-	TriggerEvent("esx_np_skinshop:toggleMenu", "clotheshop")
-	--]]
+
 end
 
 function openDialog()
-	--inMenu = true
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'shop_confirm', {
 		title = _U('valid_this_purchase'),
 		align = 'top-left',
@@ -180,7 +167,6 @@ function openDialog()
 				if bought then
 
 					TriggerEvent('skinchanger:getSkin', function(skin)
-						--print(json.encode(skin))
 						TriggerServerEvent('esx_skin:save', skin)
 					end)
 
@@ -232,21 +218,18 @@ function openDialog()
 		end
 
 		currentAction     = 'shop_menu'
-		--inMenu = false
 		currentActionMsg  = _U('press_menu')
 		currentActionData = {}
 	end, function(data, menu)
 		menu.close()
 
 		currentAction     = 'shop_menu'
-		--inMenu = false
 		currentActionMsg  = _U('press_menu')
 		currentActionData = {}
 	end)
 end
 
 RegisterNUICallback("endDialog", function(data)
-	--print(data)
 	TriggerEvent("esx_np_skinshop:toggleMenu")
 	if data == "clothes" then
 		openDialog()
